@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PrimeIcons } from 'primeng/api';
 import { PrimengModule } from './primeng/primeng.module';
+import { SaldoModule } from './saldo/saldo.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PrimengModule } from './primeng/primeng.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    PrimengModule
+    PrimengModule,
+    SaldoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
