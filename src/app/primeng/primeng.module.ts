@@ -5,6 +5,13 @@ import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { DropdownModule } from 'primeng/dropdown';
+import { TooltipModule } from 'primeng/tooltip';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+
 
 
 @NgModule({
@@ -15,7 +22,13 @@ import { DialogModule } from 'primeng/dialog';
     TableModule,
     CardModule,
     ChartModule,
-    DialogModule
+    DialogModule,
+    InputTextModule,
+    InputTextareaModule,
+    KeyFilterModule,
+    DropdownModule,
+    TooltipModule,
+    ScrollPanelModule
   ]
 })
 export class PrimengModule { }

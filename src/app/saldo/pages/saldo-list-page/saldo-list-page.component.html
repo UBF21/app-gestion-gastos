@@ -6,9 +6,9 @@
                     <tr>
                         <th>Descripción</th>
                         <th>Monto</th>
-                        <th>Tipo Gasto</th>
+                        <th>Tipo Saldo</th>
                         <th>
-                            <button pButton pRipple icon="pi pi-plus" class="p-button-raised p-button-success"></button>
+                            <saldo-add-component [tiposSaldo]="tiposSaldo"></saldo-add-component>
                         </th>
                     </tr>
                 </ng-template>
@@ -19,7 +19,7 @@
                         <td>{{ saldo.TipoSaldo.descripcion }}</td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash" class="p-button-raised p-button-danger mr-2"></button>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-raised p-button-warning"></button>
+                            <saldo-update-component [tiposSaldo]="tiposSaldo"></saldo-update-component>
                         </td>
                     </tr>
                 </ng-template>

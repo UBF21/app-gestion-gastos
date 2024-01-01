@@ -1,1 +1,32 @@
-<p>saldo-add-component works!</p>
+<button pButton pRipple icon="pi pi-plus" (click)="showDialogAddSaldo()"
+    class="p-button-raised p-button-success"></button>
+<p-dialog header="Actualizar Saldo" [(visible)]="IsShowDialogAddSaldo" [modal]="true" [style]="{ width: '50vw' }"
+    [breakpoints]="{ '960px': '80vw' }" [draggable]="false" [resizable]="false">
+    <form (ngSubmit)="onSubmitSaldo()" [formGroup]="formAddSaldo" >
+        <div class="grid">
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="register-nombres-padre">Monto <i class="pi pi-star-fill text-xs"
+                        style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i>
+                </label>
+                <input id="register-nombres-padre" pKeyFilter="num" pInputText formControlName="monto"
+                    class="w-full p-input text-sm">
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="register-nombres-padre">Tipo Ingreso <i class="pi pi-star-fill text-xs"
+                        style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i>
+                </label>
+                <p-dropdown [options]="tiposSaldo" styleClass="w-full p-input text-sm" formControlName="tipoIngreso" optionLabel="descripcion"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="register-nombres-padre">
+                    Descripción <i class="pi pi-star-fill text-xs" style="color: rgb(255, 218, 10);"
+                        pTooltip="Requerido"></i>
+                </label>
+                <textarea rows="5" cols="30" pInputTextarea class="w-full p-input text-sm" formControlName="descripcion"></textarea>
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <p-button label="Guardar" type="submit"></p-button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

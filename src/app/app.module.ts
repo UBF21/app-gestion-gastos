@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PrimeIcons } from 'primeng/api';
+
 import { PrimengModule } from './primeng/primeng.module';
 import { SaldoModule } from './saldo/saldo.module';
 

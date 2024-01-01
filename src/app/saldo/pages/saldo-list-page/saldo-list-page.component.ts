@@ -3,6 +3,8 @@ import { SaldoSupebaseService } from '../../services/saldo-supebase.service';
 import { Saldo } from '../../models/Saldo';
 import { ItemChartPie } from '../../models/ItemChartPie';
 import { Observable } from 'rxjs';
+import { TipoSaldoSupabaseService } from '../../services/tipo-saldo-supabase.service';
+import { TipoSaldo } from '../../models/TipoSaldo';
 
 @Component({
   selector: 'saldo-list-page',
@@ -12,16 +14,15 @@ import { Observable } from 'rxjs';
 export class SaldoListPageComponent implements OnInit {
 
   saldos: Saldo[] = [];
-  $saldos:Observable<Saldo[]> = new Observable<Saldo[]>();
+  tiposSaldo:TipoSaldo[] = [];
   itemsChartPie: ItemChartPie[] = [];
 
-  constructor(private saldoService: SaldoSupebaseService) { }
+  constructor(private saldoService: SaldoSupebaseService,private tipoSaldoService:TipoSaldoSupabaseService ) { }
 
   ngOnInit(): void {
     this.getAllSaldosSupaBase();
-    this.getDatosTipoSaldoSupaBase();
-    this.$saldos = this.saldoService.getAllSaldos();
-
+    this.getDatosChartTipoSaldoSupaBase();
+    this.getAllTiposSaldo();
   }
 
   getAllSaldosSupaBase(): void {
@@ -30,7 +31,6 @@ export class SaldoListPageComponent implements OnInit {
         {
           next: (response) => {
             this.saldos = response;
-            // console.log(response);
           },
           error: (error) => {
             console.log(error);
@@ -38,17 +38,27 @@ export class SaldoListPageComponent implements OnInit {
         }
       )
   }
-
-  getDatosTipoSaldoSupaBase(): void {
+  getDatosChartTipoSaldoSupaBase(): void {
     this.saldoService.getDataChartTiposIngreso()
       .subscribe(
         {
           next: (response) => {
             this.itemsChartPie = response;
-            console.log("Lo que enviaré al padre: ",this.itemsChartPie);
             },
           error: (error) => console.log(error)
         }
       )
+  }
+
+  getAllTiposSaldo(): void {
+    this.tipoSaldoService.getAllTiposSaldoSupaBase()
+      .subscribe(
+        {
+          next:(response)=> {
+            console.log(response);
+            this.tiposSaldo = response;
+          },
+          error:(error)=> console.log(error)
+        });
   }
 }

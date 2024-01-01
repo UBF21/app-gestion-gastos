@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Observable, catchError, from, map } from 'rxjs';
 import { Saldo } from '../models/Saldo';
-import { SupabaseConnection } from 'src/app/utils/SupabaseConnection';
+import { SupabaseConnection } from 'src/app/utils/models/SupabaseConnection';
 import { ItemChartPie } from '../models/ItemChartPie';
 
 @Injectable({
@@ -31,10 +31,7 @@ export class SaldoSupebaseService {
     );
 
   }
-
-
   getDataChartTiposIngreso(): Observable<ItemChartPie[]> {
-
     return from(
       this.supabase.rpc("sp_list_tipos_saldo_chart")
     ).pipe(
@@ -42,5 +39,14 @@ export class SaldoSupebaseService {
       catchError((error) => { throw error })
     );
   }
-
+  addSaldoSupabase(saldo: Saldo): Observable<Saldo[]> {
+    return from(
+      this.supabase.from("Saldos")
+        .insert(saldo)
+        .select()
+    )
+    .pipe(
+      map((response) => response.data as Saldo[])
+    )
+  }
 }
