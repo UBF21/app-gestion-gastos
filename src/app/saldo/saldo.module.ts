@@ -7,6 +7,7 @@ import { SaldoUpdateComponentComponent } from './components/saldo-update-compone
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule,NgModel } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 
@@ -27,6 +28,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     SaldoListPageComponent,
     SaldoAddComponentComponent
   ],
-  providers: []
+  providers: [ConfirmationService, MessageService]
 })
 export class SaldoModule { }

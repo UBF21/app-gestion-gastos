@@ -5,24 +5,27 @@
     <form (ngSubmit)="onSubmitSaldo()" [formGroup]="formAddSaldo" >
         <div class="grid">
             <div class="field col-12 md:col-12  lg:col-12 mb-0">
-                <label for="register-nombres-padre">Monto <i class="pi pi-star-fill text-xs"
+                <label for="monto-add-saldo">Monto <i class="pi pi-star-fill text-xs"
                         style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i>
                 </label>
-                <input id="register-nombres-padre" pKeyFilter="num" pInputText formControlName="monto"
+                <input id="monto-add-saldo" pKeyFilter="num" pInputText formControlName="monto"
                     class="w-full p-input text-sm">
+                <shared-error-message-fields [field]="formAddSaldo.get('monto')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['monto']"></shared-error-message-fields>
             </div>
             <div class="field col-12 md:col-12  lg:col-12 mb-0">
-                <label for="register-nombres-padre">Tipo Ingreso <i class="pi pi-star-fill text-xs"
+                <label for="tipo-ingreso-add-saldo">Tipo Ingreso <i class="pi pi-star-fill text-xs"
                         style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i>
                 </label>
-                <p-dropdown [options]="tiposSaldo" styleClass="w-full p-input text-sm" formControlName="tipoIngreso" optionLabel="descripcion"></p-dropdown>
+                <p-dropdown [options]="tiposSaldo" styleClass="w-full p-input text-sm" placeholder="Seleccionar tipo" formControlName="tipoIngreso" optionLabel="descripcion" id="tipo-ingreso-add-saldo"></p-dropdown>
+                <shared-error-message-fields [field]="formAddSaldo.get('tipoIngreso')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['tipoIngreso']"></shared-error-message-fields>
             </div>
             <div class="field col-12 md:col-12  lg:col-12 mb-0">
-                <label for="register-nombres-padre">
+                <label for="descripcion-add-saldo">
                     Descripción <i class="pi pi-star-fill text-xs" style="color: rgb(255, 218, 10);"
                         pTooltip="Requerido"></i>
                 </label>
-                <textarea rows="5" cols="30" pInputTextarea class="w-full p-input text-sm" formControlName="descripcion"></textarea>
+                <textarea rows="5" cols="30" id="descripcion-add-saldo" pInputTextarea class="w-full p-input text-sm" formControlName="descripcion"></textarea>
+                <shared-error-message-fields [field]="formAddSaldo.get('descripcion')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['descripcion']"></shared-error-message-fields>
             </div>
             <div class="field col-12 md:col-12  lg:col-12 mb-0">
                 <p-button label="Guardar" type="submit"></p-button>

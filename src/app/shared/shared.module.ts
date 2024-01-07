@@ -4,6 +4,7 @@ import { SharedCharPieComponentComponent } from './components/shared-char-pie-co
 import { SharedNavbarComponentComponent } from './components/shared-navbar-component/shared-navbar-component.component';
 import { SharedFooterComponentComponent } from './components/shared-footer-component/shared-footer-component.component';
 import { PrimengModule } from '../primeng/primeng.module';
+import { SharedErrorMessageFieldsComponent } from './components/shared-error-message-fields/shared-error-message-fields.component';
 
 
 
@@ -11,7 +12,8 @@ import { PrimengModule } from '../primeng/primeng.module';
   declarations: [
     SharedCharPieComponentComponent,
     SharedNavbarComponentComponent,
-    SharedFooterComponentComponent
+    SharedFooterComponentComponent,
+    SharedErrorMessageFieldsComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { PrimengModule } from '../primeng/primeng.module';
   exports:[
     SharedCharPieComponentComponent,
     SharedNavbarComponentComponent,
-    SharedFooterComponentComponent
+    SharedFooterComponentComponent,
+    SharedErrorMessageFieldsComponent
   ],
   providers:[]
 })

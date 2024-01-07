@@ -11,6 +11,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -28,7 +30,9 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     KeyFilterModule,
     DropdownModule,
     TooltipModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    ToastModule,
+    ConfirmDialogModule
   ]
 })
 export class PrimengModule { }

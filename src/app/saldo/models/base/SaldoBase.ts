@@ -1,13 +1,10 @@
-import { TipoSaldo } from "./TipoSaldo";
-
-export class Saldo {
+export abstract class SaldoBase{
     id:number;
     fecha:Date;
     monto:number;
     descripcion:string;
     idAuth:number;
     idTipoSaldo:number;
-    TipoSaldo?:TipoSaldo;
 
     constructor(){
         this.id = 0;
@@ -16,6 +13,5 @@ export class Saldo {
         this.descripcion = "";
         this.idAuth = 0;
         this.idTipoSaldo = 0;
-        this.TipoSaldo = new TipoSaldo();
     }
-}
+} 

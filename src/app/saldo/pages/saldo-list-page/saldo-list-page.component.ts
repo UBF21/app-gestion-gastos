@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SaldoSupebaseService } from '../../services/saldo-supebase.service';
-import { Saldo } from '../../models/Saldo';
+import { SaldoRead } from '../../models/SaldoRead';
 import { ItemChartPie } from '../../models/ItemChartPie';
-import { Observable } from 'rxjs';
 import { TipoSaldoSupabaseService } from '../../services/tipo-saldo-supabase.service';
 import { TipoSaldo } from '../../models/TipoSaldo';
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'saldo-list-page',
@@ -13,20 +14,35 @@ import { TipoSaldo } from '../../models/TipoSaldo';
 })
 export class SaldoListPageComponent implements OnInit {
 
-  saldos: Saldo[] = [];
-  tiposSaldo:TipoSaldo[] = [];
+  saldos: SaldoRead[] = [];
+  tiposSaldo: TipoSaldo[] = [];
   itemsChartPie: ItemChartPie[] = [];
 
-  constructor(private saldoService: SaldoSupebaseService,private tipoSaldoService:TipoSaldoSupabaseService ) { }
+  constructor(private saldoService: SaldoSupebaseService, private tipoSaldoService: TipoSaldoSupabaseService, private confirmationService: ConfirmationService,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.getAllSaldosSupaBase();
-    this.getDatosChartTipoSaldoSupaBase();
+    this.getAllSaldos();
+    this.getDatosChartTipoSaldo();
     this.getAllTiposSaldo();
   }
 
-  getAllSaldosSupaBase(): void {
-    this.saldoService.getAllSaldos()
+  getIsSaldoUpdate(isSaldoUpdate: boolean): void {
+    if (isSaldoUpdate) {
+      this.getAllSaldos();
+      this.getDatosChartTipoSaldo();
+    }
+  }
+
+  getIsSaldoAdd(isSaldoAdd: boolean): void {
+    if (isSaldoAdd) {
+      this.getAllSaldos();
+      this.getDatosChartTipoSaldo();
+    }
+  }
+
+  getAllSaldos(): void {
+    this.saldoService.getAllSaldosSupaBase()
       .subscribe(
         {
           next: (response) => {
@@ -38,13 +54,15 @@ export class SaldoListPageComponent implements OnInit {
         }
       )
   }
-  getDatosChartTipoSaldoSupaBase(): void {
-    this.saldoService.getDataChartTiposIngreso()
+
+  getDatosChartTipoSaldo(): void {
+    this.itemsChartPie = [];
+    this.saldoService.getDataChartTiposIngresoSupaBase()
       .subscribe(
         {
           next: (response) => {
             this.itemsChartPie = response;
-            },
+          },
           error: (error) => console.log(error)
         }
       )
@@ -54,11 +72,51 @@ export class SaldoListPageComponent implements OnInit {
     this.tipoSaldoService.getAllTiposSaldoSupaBase()
       .subscribe(
         {
-          next:(response)=> {
+          next: (response) => {
             console.log(response);
             this.tiposSaldo = response;
           },
-          error:(error)=> console.log(error)
+          error: (error) => console.log(error)
         });
+  }
+
+  onDeleteSaldo(id: number): void {
+
+    this.confirmationService.confirm({
+      message: 'Estás seguro de eliminar este registros?',
+      header: 'Confirmación de eliminación.',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.messageService.add({ severity: 'success', summary: 'Exítoso', detail: 'Se Eliminó correctamente.' });
+        this.deleteSaldo(id);
+      },
+      reject: (type: ConfirmEventType) => {
+        switch (type) {
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'Se Canceló la eliminación.' });
+            break;
+          case ConfirmEventType.REJECT:
+            this.messageService.add({ severity: 'error', summary: 'No Eliminar', detail: 'No se procedió la eliminación.' });
+            break;
+          default:
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrió un error severo.' });
+            break;
+        }
+      }
+    });
+
+  }
+
+  deleteSaldo(id: number) {
+    this.saldoService.deleteSaldoSupaBase(id)
+      .subscribe(
+        {
+          next: (response) => {
+            this.getAllSaldos();
+            this.getDatosChartTipoSaldo();
+          },
+          error: (error) => { console.log(error); }
+        }
+      )
   }
 }
