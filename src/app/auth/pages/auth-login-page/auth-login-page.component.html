@@ -1,0 +1,41 @@
+<div class="mx-1">
+    <div class="grid h-screen">
+        <div class="col-12 flex flex-column flex-wrap justify-content-center align-items-center">
+            <div class="card">
+                <p-card styleClass="p-3 shadow-6">
+                    <form (ngSubmit)="onSubmitSignIn()" [formGroup]="formLogin">
+                        <div class="grid justify-content-center align-items-center">
+                            <div class="col-12 md:col-6 fadein">
+                                <div class="field col-12 md:col-12 lg:col-12 mb-0">
+                                    <h2>Inicio de Sesión</h2>
+                                </div>
+                                <div class="field col-12 md:col-12 lg:col-12 mb-0">
+                                    <label for="username">Username <i class="pi pi-star-fill text-xs"
+                                            style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i></label>
+                                    <input id="username" type="text" name="username" formControlName="username"
+                                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                    <shared-error-message-fields [field]="formLogin.get('username')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['username']"></shared-error-message-fields>
+                                </div>
+                                <div class="field col-12 md:col-12 lg:col-12 mb-0">
+                                    <label for="password">Password <i class="pi pi-star-fill text-xs"
+                                            style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i></label>
+                                    <input id="password" type="password" name="password" formControlName="password"
+                                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                    <shared-error-message-fields [field]="formLogin.get('password')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['password']"></shared-error-message-fields>
+                                </div>
+                                <div class="field col-12 md:col-12 lg:col-12">
+                                    <p-button label="Ingresar" icon="pi pi-arrow-circle-right" type="submit"
+                                        [disabled]="formLogin.invalid" iconPos="right"></p-button>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 flex justify-content-center">
+                                <img src="/../assets/img/img-login.jpg" alt="Image" Class="hidden md:block fadein border-round border-solid shadow-4" width="350"/>
+                            </div> 
+                        </div>
+                    </form>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <p-toast></p-toast>
+</div>

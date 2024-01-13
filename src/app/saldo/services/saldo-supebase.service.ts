@@ -18,13 +18,13 @@ export class SaldoSupebaseService {
     return from(
       this.supabase.from("Saldos")
         .select(`
-          id,
-          fecha,
-          monto,
-          descripcion,
-          idAuth: id_auth,
-          idTipoSaldo: id_tipo_saldo,
-          TipoSaldo: Tipos_ingresos_saldos (id,descripcion)
+        id,
+        fecha,
+        monto,
+        descripcion,
+        idAuth: id_auth,
+        idTipoSaldo: id_tipo_saldo,
+        TipoSaldo: Tipos_ingresos_saldos (id,descripcion)
         `)
     ).pipe(
       map((response: any) => response.data as SaldoRead[]),
@@ -32,7 +32,7 @@ export class SaldoSupebaseService {
     );
 
   }
-  
+
   getDataChartTiposIngresoSupaBase(): Observable<ItemChartPie[]> {
     return from(
       this.supabase.rpc("sp_list_tipos_saldo_chart")
@@ -41,11 +41,11 @@ export class SaldoSupebaseService {
       catchError((error) => { throw error })
     );
   }
-  
+
   addSaldoSupabase(saldo: SaldoWrite): Observable<SaldoWrite[]> {
     return from(
       this.supabase.from("Saldos")
-        .insert(saldo.buildSaldoObjectWrite(saldo))
+        .insert(saldo.buildSaldoObjectWrite())
         .select(` 
         id,
         fecha,
@@ -61,10 +61,10 @@ export class SaldoSupebaseService {
       )
   }
 
-  updateSaldoSupaBase(saldo: SaldoWrite, id: number): Observable<SaldoWrite[]> {
+  updateSaldoSupaBase(saldo: SaldoWrite): Observable<SaldoWrite[]> {
     return from(
       this.supabase.from("Saldos")
-        .update(saldo.buildSaldoObjectWrite(saldo))
+        .update(saldo.buildSaldoObjectWrite())
         .eq('id', saldo.id)
         .select(` id,
         fecha,

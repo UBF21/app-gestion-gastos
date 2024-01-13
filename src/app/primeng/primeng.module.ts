@@ -13,7 +13,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
+import { ProgressSpinnerModule  } from 'primeng/progressspinner';
+import { ImageModule } from 'primeng/image';
 
 
 @NgModule({
@@ -32,7 +33,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     TooltipModule,
     ScrollPanelModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ProgressSpinnerModule,
+    ImageModule
   ]
 })
 export class PrimengModule { }

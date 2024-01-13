@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 
 import { PrimengModule } from './primeng/primeng.module';
 import { SaldoModule } from './saldo/saldo.module';
+import { GastosModule } from './gastos/gastos.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { SaldoModule } from './saldo/saldo.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     PrimengModule,
-    SaldoModule
+    SaldoModule,
+    GastosModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

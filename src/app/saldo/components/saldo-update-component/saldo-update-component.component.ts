@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BuilderValidationMessageError } from 'src/app/utils/models/BuilderValidationMessageError';
 import { ItemBuilderValidationMessageError } from 'src/app/utils/interfaces/ItemBuilderValidationMessageError';
 import { SaldoWrite } from '../../models/SaldoWrite';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { SaldoSupebaseService } from '../../services/saldo-supebase.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'saldo-update-component',
@@ -29,7 +29,7 @@ export class SaldoUpdateComponentComponent implements OnInit {
   validationsMessages: ItemBuilderValidationMessageError = { itemsValidationMessageError: {} };
 
   constructor(private formBuilder: FormBuilder, private tipoSaldoService: TipoSaldoSupabaseService, private builderValidationsMessage: BuilderValidationMessageError,
-    private saldoService: SaldoSupebaseService) { }
+    private saldoService: SaldoSupebaseService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.formUpdateSaldo = this.formBuilder.group({
@@ -82,19 +82,21 @@ export class SaldoUpdateComponentComponent implements OnInit {
     body.descripcion = this.getControls.get("descripcion")?.value;
     body.operation = 'Update';
 
-    this.updateSaldo(body, this.saldo.id);
+    this.updateSaldo(body);
   }
 
-  updateSaldo(saldo: SaldoWrite, id: number) {
-    this.saldoService.updateSaldoSupaBase(saldo, id)
+  updateSaldo(saldo: SaldoWrite) {
+    this.saldoService.updateSaldoSupaBase(saldo)
       .subscribe(
         {
           next: (response) => {
             this.onIsSaldoUpdate.emit(true);
+            this.messageService.add({severity:'success',summary:'Existoso',detail:'Se Actualizó correctamente el saldo.'});
             console.log(response);
           },
           error: (error) => {
             this.onIsSaldoUpdate.emit(false);
+            this.messageService.add({severity:'error',summary:'Error',detail:'No se Actualizó correctamente el saldo.'});
             console.log(error);
           }
         }

@@ -1,6 +1,6 @@
-import { SaldoBase } from "./base/SaldoBase";
+import { GastoBase } from "./base/GastoBase";
 
-export class SaldoWrite extends SaldoBase {
+export class GastoWrite extends GastoBase {
 
     operation: 'Add' | 'Update' = 'Add';
 
@@ -8,18 +8,18 @@ export class SaldoWrite extends SaldoBase {
         super();
     }
 
-    buildSaldoObjectWrite(): Object {
+    buildSaldoObjectWrite(): void {
 
         const body: any = {
             monto: this.monto,
             descripcion: this.descripcion,
             id_auth: this.idAuth,
-            id_tipo_saldo: this.idTipoSaldo
-        };
+            id_tipo_gasto: this.idTipoGasto
+        }
 
         if (this.operation === 'Add') body['fecha'] = this.fecha;
         if (this.operation === 'Update' && (this.id !== 0)) body['id'] = this.id;
-
+    
         return body;
     }
 }

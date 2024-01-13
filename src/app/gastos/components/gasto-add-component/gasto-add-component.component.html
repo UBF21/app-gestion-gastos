@@ -1,0 +1,35 @@
+<button pButton pRipple icon="pi pi-plus" (click)="showDialogAddGasto()"
+    class="p-button-raised p-button-success"></button>
+<p-dialog header="Agregar Gasto" [(visible)]="IsShowDialogAddGasto" [modal]="true" [style]="{ width: '50vw' }"
+    [breakpoints]="{ '960px': '80vw' }" [draggable]="false" [resizable]="false">
+    <form (ngSubmit)="onSubmitGasto()" [formGroup]="formAddGasto" >
+        <div class="grid">
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="monto-add-gasto">Monto <i class="pi pi-star-fill text-xs"
+                        style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i>
+                </label>
+                <input id="monto-add-gasto" pKeyFilter="num" pInputText formControlName="monto"
+                    class="w-full p-input text-sm">
+                <shared-error-message-fields [field]="formAddGasto.get('monto')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['monto']"></shared-error-message-fields>
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="tipo-ingreso-add-gasto">Tipo Ingreso <i class="pi pi-star-fill text-xs"
+                        style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i>
+                </label>
+                <p-dropdown [options]="tipoGastos" styleClass="w-full p-input text-sm" placeholder="Seleccionar tipo" formControlName="tipoIngreso" optionValue="id" optionLabel="descripcion" id="tipo-ingreso-add-gasto"></p-dropdown>
+                <shared-error-message-fields [field]="formAddGasto.get('tipoIngreso')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['tipoIngreso']"></shared-error-message-fields>
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="descripcion-add-gasto">
+                    Descripción <i class="pi pi-star-fill text-xs" style="color: rgb(255, 218, 10);"
+                        pTooltip="Requerido"></i>
+                </label>
+                <textarea rows="5" cols="30" id="descripcion-add-gasto" pInputTextarea class="w-full p-input text-sm" formControlName="descripcion"></textarea>
+                <shared-error-message-fields [field]="formAddGasto.get('descripcion')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['descripcion']"></shared-error-message-fields>
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <p-button label="Guardar" type="submit"></p-button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

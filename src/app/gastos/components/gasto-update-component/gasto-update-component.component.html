@@ -1,0 +1,35 @@
+<button pButton pRipple icon="pi pi-pencil" (click)="showDialogUpdateGasto()"
+    class="p-button-raised p-button-warning"></button>
+<p-dialog header="Actualizar Gasto" [(visible)]="IsShowDialogUpdateGasto" [modal]="true" [style]="{ width: '50vw' }"
+    [breakpoints]="{ '960px': '80vw' }" [draggable]="false" [resizable]="false">
+    <form (ngSubmit)="onSubmitGasto()" [formGroup]="formUpdateGasto">
+        <div class="grid">
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="monto-update-monto">Monto <i class="pi pi-star-fill text-xs"
+                        style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i>
+                </label>
+                <input id="monto-update-monto" pKeyFilter="num" pInputText formControlName="monto"
+                    class="w-full p-input text-sm">
+                <shared-error-message-fields [field]="formUpdateGasto.get('monto')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['monto']"></shared-error-message-fields>
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="tipo-ingreso-update-saldo">Tipo Ingreso <i class="pi pi-star-fill text-xs"
+                        style="color: rgb(255, 218, 10);" pTooltip="Requerido"></i>
+                </label>
+                <p-dropdown [options]="tipoGastos" styleClass="w-full p-input text-sm" placeholder="Seleccionar tipo" optionLabel="descripcion" optionValue="id" formControlName="tipoIngreso" id="tipo-ingreso-update-saldo"></p-dropdown>
+                <shared-error-message-fields [field]="formUpdateGasto.get('tipoIngreso')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['tipoIngreso']"></shared-error-message-fields>
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <label for="descripcion-update-saldo">
+                    Descripción <i class="pi pi-star-fill text-xs" style="color: rgb(255, 218, 10);"
+                        pTooltip="Requerido"></i>
+                </label>
+                <textarea rows="5" cols="30" pInputTextarea class="w-full p-input text-sm" id="descripcion-update-saldo" formControlName="descripcion"></textarea>
+                <shared-error-message-fields [field]="formUpdateGasto.get('descripcion')" [validationsMessageError]="validationsMessages.itemsValidationMessageError['descripcion']"></shared-error-message-fields>
+            </div>
+            <div class="field col-12 md:col-12  lg:col-12 mb-0">
+                <p-button label="Actualizar" type="submit"></p-button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

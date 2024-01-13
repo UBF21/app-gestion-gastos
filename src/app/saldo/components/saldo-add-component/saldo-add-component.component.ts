@@ -7,6 +7,7 @@ import { ItemBuilderValidationMessageError } from 'src/app/utils/interfaces/Item
 import { SaldoRead } from '../../models/SaldoRead';
 import { SaldoSupebaseService } from '../../services/saldo-supebase.service';
 import { SaldoWrite } from '../../models/SaldoWrite';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'saldo-add-component',
@@ -27,7 +28,7 @@ export class SaldoAddComponentComponent implements OnInit {
   validationsMessages: ItemBuilderValidationMessageError = { itemsValidationMessageError: {} };
 
   constructor(private formBuilder: FormBuilder, private tipoSaldoService: TipoSaldoSupabaseService, private builderValidationsMessage: BuilderValidationMessageError,
-    private saldoService: SaldoSupebaseService) { }
+    private saldoService: SaldoSupebaseService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.formAddSaldo = this.formBuilder.group({
@@ -38,7 +39,7 @@ export class SaldoAddComponentComponent implements OnInit {
 
     this.generateValidationsMessage();
   }
-  
+
   showDialogAddSaldo(): void {
     this.IsShowDialogAddSaldo = true;
   }
@@ -63,10 +64,12 @@ export class SaldoAddComponentComponent implements OnInit {
         {
           next: (response) => {
             this.onIsSaldoAdd.next(true);
+            this.messageService.add({ severity: 'success', summary: 'Existoso', detail: 'Se Guardó correctamente el saldo.' });
             console.log(response);
           },
           error: (error) => {
             this.onIsSaldoAdd.next(false);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se Guardó correctamente el saldo.' });
             console.log(error);
           }
         })
