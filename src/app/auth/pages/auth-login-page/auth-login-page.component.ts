@@ -6,6 +6,9 @@ import { UserCredentials } from '../../interfaces/UserCredentials';
 import { AuthSupabaseService } from '../../services/auth-supabase.service';
 import { MessageService } from 'primeng/api';
 import { Constants } from 'src/app/utils/helpers/Constants';
+import { StorageSupasbaseService } from 'src/app/shared/services/storage-supasbase.service';
+import { ManagerLocalStorage } from 'src/app/utils/helpers/ManagerLocalStorage';
+import { UserCurrent } from '../../models/UserCurrent';
 
 @Component({
   selector: 'auth-login-page',
@@ -18,7 +21,7 @@ export class AuthLoginPageComponent implements OnInit {
   validationsMessages: ItemBuilderValidationMessageError = { itemsValidationMessageError: {} };
 
   constructor(private formBuilder: FormBuilder, private builderValidationMessage: BuilderValidationMessageError, private authService: AuthSupabaseService,
-    private messageService: MessageService) { }
+    private messageService: MessageService, private storageService: StorageSupasbaseService, private managerLocalStorage: ManagerLocalStorage) { }
 
   ngOnInit(): void {
     this.formLogin = this.formBuilder.group({
@@ -37,14 +40,13 @@ export class AuthLoginPageComponent implements OnInit {
       .subscribe(
         {
           next: (response) => {
-            const uid: string = response.session.user.id;
-            this.getCurrentUser (uid);
-            console.log(response);
+            const uid:string = response.session.user.id;
             if (response.user === null || response.session === null) this.messageService.add({ severity: Constants.DIALOG_TYPE_ERROR, summary: 'Error en autenticación', detail: 'El username o password son incorrectos.' });
-
+            this.getCurrentUser(uid);
+            console.log(response);
           },
           error: (error) => console.log(error)
-          
+
         }
       );
   }
@@ -69,7 +71,11 @@ export class AuthLoginPageComponent implements OnInit {
     this.authService.getCurrentUserSupaBase(uid)
       .subscribe(
         {
-          next: (response) => console.log(response),
+          next: (response) => {
+            const result: UserCurrent = response;
+            this.managerLocalStorage.setObjectItemStorage<UserCurrent>("user", result);
+            console.log(response);
+          },
           error: (error) => console.log(error)
         }
       )

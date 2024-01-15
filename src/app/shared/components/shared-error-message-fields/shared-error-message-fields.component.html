@@ -1,17 +1,17 @@
 <div class="mt-1" *ngIf="field?.invalid && (field?.dirty || field?.touched)">
-    <p *ngIf="field?.hasError('required')" class="font-medium p-0 mb-0" style="color: rgb(255, 218, 10);">
+    <p *ngIf="field?.hasError('required')" class="font-medium p-0 mb-0 fadein" style="color: rgb(255, 218, 10);">
         {{validationsMessageError.optionsMenssageError.required}}
     </p>
-    <p *ngIf="field?.hasError('maxlength')" class="font-medium p-0 mb-0" style="color: rgb(255, 218, 10);">
+    <p *ngIf="field?.hasError('maxlength')" class="font-medium p-0 mb-0 fadein" style="color: rgb(255, 218, 10);">
         {{validationsMessageError.optionsMenssageError.maxLength}}
     </p>
-    <p *ngIf="field?.hasError('email')" class="font-medium p-0 mb-0" style="color: rgb(255, 218, 10);">
+    <p *ngIf="field?.hasError('email')" class="font-medium p-0 mb-0 fadein" style="color: rgb(255, 218, 10);">
         {{validationsMessageError.optionsMenssageError.email}}
     </p>
-    <p *ngIf="field?.hasError('min')" ngClass="font-medium p-0 mb-0" style="color: rgb(255, 218, 10);">
+    <p *ngIf="field?.hasError('min')" class="font-medium p-0 mb-0 fadein" style="color: rgb(255, 218, 10);">
         {{validationsMessageError.optionsMenssageError.min}}
     </p>
-    <p *ngIf="field?.hasError('max')" ngClass="font-medium p-0 mb-0" style="color: rgb(255, 218, 10);">
+    <p *ngIf="field?.hasError('max')" class="font-medium p-0 mb-0 fadein" style="color: rgb(255, 218, 10);">
         {{validationsMessageError.optionsMenssageError.max}}
     </p>
 </div>
